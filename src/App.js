@@ -4,7 +4,10 @@ import User from "./components/User";
 
 function App() {
     return (
-        <Header />
+        <div>
+            <Header />
+            <User />
+        </div>
     )
 }
 
