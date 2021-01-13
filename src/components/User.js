@@ -1,7 +1,7 @@
 import React from "react";
 import API from "../utils/API";
+import Table from "./Table";
 import Sort from "./Sort";
-import Filter from "./Filter";
 import "../styles/style.css";
 
 class User extends React.Component {
@@ -29,13 +29,13 @@ class User extends React.Component {
 
     nameSort = () => {
         this.setState({
-            inTable: this.state.users.sort((a,b) => a.name.last.localeCompare(b.name.last))
+            inTable: this.state.inTable.sort((a,b) => a.name.last.localeCompare(b.name.last))
         });
     };
 
     stateSort = () => {
         this.setState({
-            inTable: this.state.users.sort((a,b) => a.location.state.localeCompare(b.location.state))
+            inTable: this.state.inTable.sort((a,b) => a.location.state.localeCompare(b.location.state))
         });
     };
 
@@ -90,28 +90,11 @@ class User extends React.Component {
                     </form>
                     </div>
                 </div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th className="text-center" scope="col">Picture</th>
-                            <th className="text-center hover" scope="col" data-value="name" onClick={this.nameSort}>Name</th>
-                            <th className="text-center" scope="col">Email Address</th>
-                            <th className="text-center" scope="col">Phone Number</th>
-                            <th className="text-center hover" scope="col" data-value="state" onClick={this.stateSort}>Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.inTable.map(user => (
-                        <tr key={user.login.uuid}>
-                            <td className="d-flex justify-content-center"><img src={user.picture.medium} alt="employee"/></td>
-                            <td className="text-center">{user.name.first} {user.name.last}</td>
-                            <td className="text-center">{user.email}</td>
-                            <td className="text-center">{user.phone}</td>
-                            <td className="text-center">{user.location.city}, {user.location.state}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                <Table
+                    nameSort={this.nameSort}
+                    stateSort={this.stateSort}
+                    users={this.state.inTable}
+                />
             </div>
         )
     }
