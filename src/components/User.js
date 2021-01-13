@@ -7,6 +7,7 @@ import "../styles/style.css";
 class User extends React.Component {
     state = {
         users: [],
+        inTable: [],
         states: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
         filter: ""
     };
@@ -19,19 +20,29 @@ class User extends React.Component {
         API.getUsers()
         .then(res => {
             console.log(res)
-            this.setState({ users: res.data.results });
+            this.setState({ 
+                users: res.data.results,
+                inTable: res.data.results
+            });
         });
     };
 
     nameSort = () => {
         this.setState({
-            users: this.state.users.sort((a,b) => a.name.last.localeCompare(b.name.last))
+            inTable: this.state.users.sort((a,b) => a.name.last.localeCompare(b.name.last))
         });
     };
 
     stateSort = () => {
         this.setState({
-            users: this.state.users.sort((a,b) => a.location.state.localeCompare(b.location.state))
+            inTable: this.state.users.sort((a,b) => a.location.state.localeCompare(b.location.state))
+        });
+    };
+
+    reset = event => {
+        event.preventDefault();
+        this.setState({
+            inTable: this.state.users
         });
     };
 
@@ -40,7 +51,7 @@ class User extends React.Component {
         const filterState = document.querySelector("#filterInput").value;
         const filtered = this.state.users.filter(user => user.location.state === filterState);
         this.setState({
-            users: filtered
+            inTable: filtered
         });
     };
 
@@ -73,6 +84,9 @@ class User extends React.Component {
                             type="submit"
                             className="btn btn-info"
                             onClick={this.handleFormSubmit}>Filter</button>
+                        <button
+                            className="btn btn-warning"
+                            onClick={this.reset}>Reset</button>
                     </form>
                     </div>
                 </div>
@@ -87,7 +101,7 @@ class User extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.users.map(user => (
+                    {this.state.inTable.map(user => (
                         <tr key={user.login.uuid}>
                             <td className="d-flex justify-content-center"><img src={user.picture.medium} alt="employee"/></td>
                             <td className="text-center">{user.name.first} {user.name.last}</td>
