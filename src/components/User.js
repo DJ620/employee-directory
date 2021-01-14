@@ -44,6 +44,7 @@ class User extends React.Component {
         this.setState({
             inTable: this.state.users
         });
+        document.querySelector("#filterInput").value = "";
     };
 
     handleFormSubmit = event => {
