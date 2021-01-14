@@ -21,7 +21,6 @@ class User extends React.Component {
     getUsers() {
         API.getUsers()
         .then(res => {
-            console.log(res)
             this.setState({ 
                 users: res.data.results,
                 inTable: res.data.results
