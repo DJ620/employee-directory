@@ -9,7 +9,7 @@ This is a web application that allows the user to view a comprehensive list of e
 ## Link
 
 Deployed application:
-
+https://dj620.github.io/employee-directory/
 
 ## Usage
 
