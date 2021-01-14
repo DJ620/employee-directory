@@ -12,10 +12,12 @@ class User extends React.Component {
         filter: ""
     };
 
+    // This function runs as soon as the page loads
     componentDidMount() {
         this.getUsers();
     };
 
+    // Sends a get request to the randomusers api and returns 200 random employees
     getUsers() {
         API.getUsers()
         .then(res => {
@@ -27,18 +29,21 @@ class User extends React.Component {
         });
     };
 
+    // Sorts the list of employee's by their last names
     nameSort = () => {
         this.setState({
             inTable: this.state.inTable.sort((a,b) => a.name.last.localeCompare(b.name.last))
         });
     };
 
+    // Sorts the list of employee's by state
     stateSort = () => {
         this.setState({
             inTable: this.state.inTable.sort((a,b) => a.location.state.localeCompare(b.location.state))
         });
     };
 
+    // This brings back all employee's after being filtered
     reset = event => {
         event.preventDefault();
         this.setState({
@@ -47,6 +52,7 @@ class User extends React.Component {
         document.querySelector("#filterInput").value = "";
     };
 
+    // This filters the employee's by the state entered
     handleFormSubmit = event => {
         event.preventDefault();
         const filterState = document.querySelector("#filterInput").value;
@@ -67,28 +73,28 @@ class User extends React.Component {
                         />
                     </div>
                     <div className="col-8">
-                    <form>
-                        <input
-                            id="filterInput"
-                            type="text"
-                            name="filter"
-                            list="states"
-                            style={{width: "80%"}}
-                            placeholder="See employees from State entered here"
-                        />
-                        <datalist id="states">
-                            {this.state.states.map(state => (
-                                <option value={state} key={state}></option>
-                            ))}
-                        </datalist>
-                        <button
-                            type="submit"
-                            className="btn btn-info"
-                            onClick={this.handleFormSubmit}>Filter</button>
-                        <button
-                            className="btn btn-warning"
-                            onClick={this.reset}>Reset</button>
-                    </form>
+                        <form>
+                            <input
+                                id="filterInput"
+                                type="text"
+                                name="filter"
+                                list="states"
+                                style={{width: "80%"}}
+                                placeholder="See employees from State entered here"
+                            />
+                            <datalist id="states">
+                                {this.state.states.map(state => (
+                                    <option value={state} key={state}></option>
+                                ))}
+                            </datalist>
+                            <button
+                                type="submit"
+                                className="btn btn-info"
+                                onClick={this.handleFormSubmit}>Filter</button>
+                            <button
+                                className="btn btn-warning"
+                                onClick={this.reset}>Reset</button>
+                        </form>
                     </div>
                 </div>
                 <Table

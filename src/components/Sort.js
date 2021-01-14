@@ -15,7 +15,7 @@ function Sort(props) {
                 </Dropdown.Menu>
             </Dropdown>
         </div>
-    )
-}
+    );
+};
 
 export default Sort;

@@ -14,6 +14,7 @@ function Table(props) {
                     </tr>
                 </thead>
                 <tbody>
+                {/* Mapping through the array of users and creating a row for each one */}
                 {props.users.map(user => (
                     <tr key={user.login.uuid}>
                         <td className="d-flex justify-content-center"><img src={user.picture.medium} alt="employee"/></td>
@@ -26,7 +27,7 @@ function Table(props) {
                 </tbody>
             </table>
         </div>
-    )
-}
+    );
+};
 
 export default Table;
